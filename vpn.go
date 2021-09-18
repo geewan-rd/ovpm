@@ -594,9 +594,9 @@ func (svr *Server) Emit() error {
 		return fmt.Errorf("can not emit dhparams: %s", err)
 	}
 
-	if err := svr.emitCCD(); err != nil {
-		return fmt.Errorf("can not emit ccd: %s", err)
-	}
+	// if err := svr.emitCCD(); err != nil {
+	// 	return fmt.Errorf("can not emit ccd: %s", err)
+	// }
 
 	if err := svr.emitIptables(); err != nil {
 		return fmt.Errorf("can not emit iptables: %s", err)

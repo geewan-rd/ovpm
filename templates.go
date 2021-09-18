@@ -221,7 +221,7 @@ ifconfig-pool-persist ipp.txt
 # Thelonious a fixed VPN IP address of 10.9.0.1.
 # First uncomment out these lines:
 ;client-config-dir ccd
-client-config-dir {{ .CCDPath }}
+;client-config-dir {{ .CCDPath }}
 # Then add this line to ccd/Thelonious:
 #   ifconfig-push 10.9.0.1 10.9.0.2
 
@@ -247,7 +247,7 @@ crl-verify {{ .CRLPath }}
 # or bridge the TUN/TAP interface to the internet
 # in order for this to work properly).
 ;push "redirect-gateway def1 bypass-dhcp"
-;push "redirect-gateway def1 bypass-dhcp"
+push "redirect-gateway def1 bypass-dhcp"
 
 # Certain Windows-specific network settings
 # can be pushed to clients, such as DNS

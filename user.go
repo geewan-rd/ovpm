@@ -7,11 +7,11 @@ import (
 
 	passlib "gopkg.in/hlandau/passlib.v1"
 
-	"github.com/sirupsen/logrus"
 	"github.com/asaskevich/govalidator"
 	"github.com/cad/ovpm/pki"
 	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
+	"github.com/sirupsen/logrus"
 )
 
 // dbRevokedModel is a database model for revoked VPN users.
@@ -192,7 +192,7 @@ func CreateNewUser(username, password string, nogw bool, hostid uint32, admin bo
 		NoGW:               nogw,
 		HostID:             hostid,
 		Admin:              admin,
-		Description:		description,
+		Description:        description,
 	}
 	user.setPassword(password)
 
@@ -204,9 +204,9 @@ func CreateNewUser(username, password string, nogw bool, hostid uint32, admin bo
 	logrus.Infof("user created: %s", username)
 
 	// EmitWithRestart server config
-	if err = svr.EmitWithRestart(); err != nil {
-		return nil, err
-	}
+	// if err = svr.EmitWithRestart(); err != nil {
+	// 	return nil, err
+	// }
 	return &User{dbUserModel: user}, nil
 }
 
@@ -265,7 +265,7 @@ func (u *User) Delete() error {
 	db.Unscoped().Delete(u.dbUserModel)
 	logrus.Infof("user deleted: %s", u.GetUsername())
 
-	if err = TheServer().EmitWithRestart(); err != nil {
+	if err = TheServer().emitCRL(); err != nil {
 		return err
 	}
 	u = nil // delete the existing user struct
